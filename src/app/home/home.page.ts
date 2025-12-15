@@ -1,12 +1,33 @@
-import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';         
+import { FormsModule } from '@angular/forms';            
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent],
+  standalone: true,
+  imports: [CommonModule, FormsModule],                 
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomePage {
-  constructor() {}
+  currentStep = 1;
+  answer = '';
+
+  nextStep() {
+    this.currentStep++;
+  }
+
+  checkAnswer() {
+    if (this.answer === 'correct') {
+      this.currentStep = 4;
+    } else {
+      alert('Dica: Ganhar tem motivo! Tenta de novo ⚡');
+    }
+  }
+
+  restartMission() {
+  this.currentStep = 1;
+  this.answer = '';
+}
 }

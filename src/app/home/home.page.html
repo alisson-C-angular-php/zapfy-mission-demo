@@ -1,20 +1,67 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Zapfy - Missão: Ganhar Moedas</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+<ion-content class="ion-padding">
+  <div class="mascot">
+    <img src="/assets/raio.jpg" alt="Mascote Raio">
+    <p class="bubble">Oi! Vamos aprender sobre ganhar moedas?</p>
   </div>
+
+  <ion-slides pager="true" *ngIf="currentStep === 1">
+    <ion-slide>
+      <h2>Ver</h2>
+      <p>Ganhar é receber moedas por fazer algo bom!</p>
+      <img src="https://via.placeholder.com/300x200/00FF00/000000?text=Arrumar+cama+=+moedas" alt="Demo">
+      <ion-button expand="block" (click)="nextStep()">Entendi!</ion-button>
+    </ion-slide>
+  </ion-slides>
+
+<div *ngIf="currentStep === 2">
+  <h2>Fazer junto</h2>
+  <p>Qual é ganhar?</p>
+  <ion-list>
+    <ion-radio-group (ionChange)="answer = $event.detail.value">  <!-- <--- Usa ionChange pra capturar o valor -->
+      <ion-item>
+        <ion-label>Arrumar a cama e receber moedas</ion-label>
+        <ion-radio value="correct"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Pegar moedas sem pedir</ion-label>
+        <ion-radio value="wrong"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+  <ion-button expand="block" (click)="checkAnswer()">Responder</ion-button>
+</div>
+
+  <div *ngIf="currentStep === 3">
+    <h2>Fazer sozinho</h2>
+    <p>Arraste para a caixa certa</p>
+    <div class="drag-area">
+      <div draggable="true" class="item">Arrumar quarto</div>
+      <div draggable="true" class="item">Pegar sem pedir</div>
+      <div class="target correct">GANHAR</div>
+      <div class="target wrong">NÃO É GANHAR</div>
+    </div>
+    <ion-button expand="block" (click)="nextStep()">Terminei!</ion-button>
+  </div>
+
+<div *ngIf="currentStep === 4">
+  
+  <h1>Parabéns! 🎉</h1>
+  <p>Você ganhou +5 moedas!</p>
+  <p>Missão completa com sucesso!</p>
+  
+  <ion-button expand="block" color="success" (click)="restartMission()">
+    Jogar Novamente ⚡
+  </ion-button>
+  
+  <ion-button expand="block" color="medium" routerLink="/">
+    Voltar ao Início
+  </ion-button>
+</div>
 </ion-content>
